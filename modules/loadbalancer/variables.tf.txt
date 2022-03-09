@@ -1,0 +1,71 @@
+variable "location" {
+  default = "canadacentral"
+}
+
+variable "rg_name" {
+  default = "group1-assignment1-rg"
+
+}
+
+variable "lb_ip" {
+  default = "load_blancer_ip"
+}
+variable "lb_name" {
+  default = "web_lb"
+}
+
+variable "lb_probe_name" {
+  default = "probe_lb"
+}
+
+
+
+variable "lb_frontend_ip_name" {
+  default = "web_lb_frontend_ip"
+}
+
+
+variable "lb_backend_pool_name" {
+  default = "web_backend"
+}
+
+
+variable "lb_rule_name" {
+  default = "health_probe_ssh"
+}
+
+
+variable "port_ssh" {
+  default = 22
+}
+
+
+
+variable "lb_linux_ip_configuration_name" {
+  default = "ip_conf_linux"
+}
+
+
+locals {
+  common_tags = {
+    Project        = "assignment1"
+    Name           = "Felix Gokmen"
+    ExpirationDate = "2022"
+    Environment    = "Lab"
+  }
+}
+
+variable "linux_nic" {
+  type = map(string)
+
+  default = {
+    nic1 = "nic1"
+    nic2 = "nic2"
+
+
+  }
+
+}
+
+variable "subnet_id" {}
+

@@ -1,0 +1,31 @@
+output "assignmentlb" {
+  value = azurerm_lb.lb
+}
+
+output "ip" {
+  value = azurerm_public_ip.lb_ip
+}
+
+output "backendpool" {
+
+  value = azurerm_lb_backend_address_pool.lb_backend_pool
+
+}
+
+
+output "pool_association" {
+
+  value = azurerm_network_interface_backend_address_pool_association.linx_nic_backend_association[*]
+
+}
+
+output "probe" {
+
+  value = azurerm_lb_probe.lb_probe
+}
+
+output "lbrule" {
+
+  value = azurerm_lb_rule.lb_rule
+
+}
