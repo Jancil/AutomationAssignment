@@ -1,0 +1,10 @@
+variable "dblocation" {}
+variable "dbname" {}
+locals {
+  common_tags = {
+    Project        = "Automation Project – Assignment 1"
+    Name           = "Jancil.Mathias"
+    ExpirationDate = "2022-03-08"
+    Environment    = "Lab"
+  }
+}
