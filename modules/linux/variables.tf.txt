@@ -1,0 +1,57 @@
+locals {
+  common_tags = {
+    Project        = "Automation Project – Assignment 1"
+    Name           = "Jancil.Mathias"
+    ExpirationDate = "2022-03-08"
+    Environment    = "Lab"
+  }
+}
+
+variable "priv_key" {
+  default = "/home/N01459977/.ssh/id_rsa"
+}
+
+variable "location" {}
+variable "rg_linux" {}
+variable "resource_group" {}
+variable "linux_name" {}
+variable "subnet1_id" {}
+variable "nb_count" {}
+variable "linux_avset" {}
+variable "vm_size" {
+  default = "Standard_B1ms"
+}
+variable "linux_admin_user" {
+  default = "N01459977"
+}
+variable "primaryendpoint" {}
+
+variable "pub_key" {
+  default = "/home/N01459977/.ssh/id_rsa.pub"
+}
+variable "los_disk_attr" {
+  type = map(string)
+  default = {
+    los_storage_account_type = "Premium_LRS"
+    los_disk_size            = "32"
+    los_disk_caching         = "ReadWrite"
+  }
+}
+
+# Variables for marketplace OS image to be installed in the VMs. Run "az vm image list --all | grep -i <ubuntu|sles|windows|rhel|centos> os.out". Review os.out and find publisher, offer, sku, and version information and set the variables.
+
+variable "linux_publisher" {
+  default = "OpenLogic"
+}
+
+variable "linux_offer" {
+  default = "CentOS"
+}
+
+variable "linux_sku" {
+  default = "8_2-gen2"
+}
+
+variable "linux_version" {
+  default = "latest"
+}
