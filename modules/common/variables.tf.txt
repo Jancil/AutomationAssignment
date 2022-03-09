@@ -1,0 +1,11 @@
+variable "resname" {}
+variable "location" {}
+variable "name" {
+  default = "analyticsworkspace"
+}
+variable "vname" {
+  default = "recoveryservice"
+}
+variable "storageaccountname" {
+  default = "n0storageaccount"
+}

@@ -1,0 +1,12 @@
+output "analytics_workspace" {
+  value = azurerm_log_analytics_workspace.analytics.name
+}
+output "recovery_services" {
+  value = azurerm_recovery_services_vault.vault.name
+}
+output "lrs_storagename" {
+  value = azurerm_storage_account.lrs_storage.name
+}
+output "endpoint" {
+  value = azurerm_storage_account.lrs_storage.primary_blob_endpoint
+}
