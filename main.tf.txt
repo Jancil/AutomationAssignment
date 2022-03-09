@@ -1,0 +1,77 @@
+module "resource_group" {
+  source     = "./modules/resource_group"
+  rg_network = "Network-RG"
+  rg_common  = "9977-RG"
+  location   = "CanadaCentral"
+}
+
+module "network" {
+  source         = "./modules/network"
+  rg_network     = "Network-RG"
+  resource_group = module.resource_group.rg_network.name
+  location       = module.resource_group.rg_network.location
+  vnet           = "vnet1"
+  vnet_space     = ["10.0.0.0/16"]
+  subnet1        = "subnet1"
+  subnet1_space  = ["10.0.1.0/24"]
+  subnet2        = "subnet2"
+  subnet2_space  = ["10.0.2.0/24"]
+  nsg1           = "nsg1"
+  nsg2           = "nsg2"
+}
+
+module "linux" {
+  source          = "./modules/linux"
+  rg_linux        = "Linux-RG"
+  linux_name      = "terraform-u-vm"
+  linux_avset     = "linux-avs"
+  nb_count        = 2
+  location        = module.resource_group.rg_common.location
+  resource_group  = module.resource_group.rg_common.name
+  subnet1_id      = module.network.subnet1_id
+  depends_on      = [module.network]
+  primaryendpoint = module.common.endpoint
+}
+
+module "windows" {
+  source     = "./modules/windows"
+  rg_windows = "Windows-RG"
+
+  windows_avset = "windows-avs"
+  windows_name = {
+    terraform-w-vm1 = "Standard_B1s"
+    terraform-w-vm2 = "Standard_B1ms"
+  }
+  location        = module.resource_group.rg_common.location
+  resource_group  = module.resource_group.rg_common.name
+  subnet2_id      = module.network.subnet2_id
+  depends_on      = [module.network]
+  primaryendpoint = module.common.endpoint
+}
+module "common" {
+  source   = "./modules/common"
+  resname  = module.resource_group.rg_common.name
+  location = module.resource_group.rg_common.location
+}
+module "loadbalancer" {
+
+  source    = "./modules/loadbalancer"
+  rg_name   = module.resource_group.rg_common.name
+  location  = module.resource_group.rg_common.location
+  subnet_id = module.network.subnet1
+
+
+  depends_on = [
+    module.linux,
+    module.windows
+  ]
+
+}
+module "database" {
+  source     = "./modules/database"
+  dbname     = module.resource_group.rg_common.name
+  dblocation = module.resource_group.rg_common.location
+  depends_on = [
+    module.loadbalancer
+  ]
+}
