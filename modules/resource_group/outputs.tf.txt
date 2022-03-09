@@ -1,0 +1,6 @@
+output "rg_common" {
+  value = azurerm_resource_group.rg
+}
+output "rg_network" {
+  value = azurerm_resource_group.rg_network
+}
