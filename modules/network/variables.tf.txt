@@ -1,0 +1,11 @@
+variable "resource_group" {}
+variable "location" {}
+variable "vnet" {}
+variable "rg_network" {}
+variable "vnet_space" {}
+variable "subnet1" {}
+variable "subnet2" {}
+variable "subnet1_space" {}
+variable "subnet2_space" {}
+variable "nsg1" {}
+variable "nsg2" {}
